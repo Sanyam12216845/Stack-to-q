@@ -1,0 +1,92 @@
+#include <iostream>
+#define SIZE 10
+#include <vector>
+using namespace std;
+
+class Stack{
+    private:
+    vector<int> elements;
+
+    public:
+    void push(int elem){
+        elements.push_back(elem);
+    }
+    
+    void pop(){
+        if(elements.empty()){
+        	cout<<"Stack is empty";
+            
+        }
+        else{
+        	elements.pop_back();
+            
+        }
+    }
+    
+    int peek(){
+        if(elements.empty()){
+        	cout<<"Stack is empty";
+        return -1;
+            
+        }
+        return elements.back();
+        
+    }
+    
+    bool isEmpty(){
+        return elements.empty();
+    }
+    
+
+};
+class Queue{
+	private:
+		Stack s1;
+		Stack s2;
+		void transferS1toS2(){
+			while(s1.isEmpty()){
+				s2.push(s1.peek())
+				s1.pop();
+			}
+		}
+		public:
+			void enqueue(int elem){
+				s1.push(elem);
+			}
+			void dequeue(){
+				if(s2.isEmpty()){
+					if(s1.isEmpty()){
+						cout<<"Queue is emptu:"<<endl;
+						return;
+					}
+					transferS1toS2();
+				}
+				s2.pop();
+			}
+			int front(){
+				if(s2.isEmpty()){
+					if(s1.isEmpty()){
+						cout<<"Que is empty"<<endl;
+						return -1;
+					}
+					transferS1toS2();
+				}
+				return s2.peek();
+			}
+			bool isEmpty(){
+				return s1.isEmpty() && s2.isEmpty();
+			}
+};
+
+
+int main()
+{
+	Queue q;
+	q.enqueue(10);
+	q.enqueue(30);
+	q.enqueue(50);
+	cout<<"front element is:"<<q.front()<<endl;
+	q.dequeue();
+	cout<<"After deq:"<<q.front()<<endl;
+	return 0;
+}
